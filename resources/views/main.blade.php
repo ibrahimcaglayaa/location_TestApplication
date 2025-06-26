@@ -26,15 +26,11 @@
     }
 </style>
 
+
 </head>
 
 <body class="index-page">
 
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
 
 <header id="header" class="header d-flex flex-column justify-content-center">
 
@@ -95,6 +91,13 @@
         </div>
     </div>
 </div>
+
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
 
 <div id="konumListesiPanel" style="
     position: fixed;
@@ -233,19 +236,26 @@
             .then(res => res.json())
             .then(locations => {
                 locations.forEach(loc => {
-
-                    const marker = L.circleMarker([lo.latitude, loc.longitude], {
+                    const marker = L.circleMarker([loc.latitude, loc.longitude], {
                         color: loc.color,
                         fillColor: loc.color,
                         fillOpacity: 0.7,
                         radius: 8
                     }).addTo(map);
 
-                    marker.bindPopup(`<strong>${loc.name}</strong><br>Renk: <span style="color:${loc.color}">${loc.color}</span>`);
+                    marker.bindPopup(`
+                        <div style="min-width:180px">
+                            <strong>${loc.name}</strong><br>
+                            Enlem: ${loc.latitude}<br>
+                            Boylam: ${loc.longitude}<br>
+                            Renk: <span style="color:${loc.color}">${loc.color}</span>
+                        </div>
+                    `);
                 });
             });
     });
 </script>
+
 
 
 </body>

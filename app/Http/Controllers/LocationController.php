@@ -9,7 +9,6 @@ class LocationController extends Controller
 {
     public function store(Request $request)
     {
-
         $validated = $request->validate([
             'name' => 'required|string|max:100',
             'latitude' => 'required|numeric',
@@ -19,8 +18,9 @@ class LocationController extends Controller
 
         Location::create($validated);
 
-        return response()->json(['message' => 'Konum başarıyla eklendi']);
+        return back()->with('success', 'Konum başarıyla eklendi!');
     }
+
 
     public function update(Request $request)
     {

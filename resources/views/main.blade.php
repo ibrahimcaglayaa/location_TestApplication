@@ -7,6 +7,12 @@
 
 <body class="index-page">
 
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
 <header id="header" class="header d-flex flex-column justify-content-center">
 
     <i class="header-toggle d-xl-none bi bi-list"></i>
@@ -19,7 +25,11 @@
                     <i class="bi bi-pin-fill"></i><span>Konum Ekle</span>
                 </a>
             </li>
-            <li><a href=""><i class="bi bi-card-list"></i><span>Konum Listele</span></a></li>
+            <li>
+                <a href="#" onclick="toggleKonumPanel(event)">
+                    <i class="bi bi-card-list"></i><span>Konum Listele</span>
+                </a>
+            </li>
         </ul>
     </nav>
 
@@ -57,11 +67,28 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
-                <button type="submit" form="konumForm" class="btn btn-primary">Kaydey</button>
+                <button type="submit" form="konumForm" class="btn btn-primary">Kaydet</button>
             </div>
         </div>
     </div>
 </div>
+
+<div id="konumListesiPanel" style="
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background: #fff;
+    border-left: 1px solid #ccc;
+    transition: right 0.9s ease-in-out;
+    padding: 20px;
+">
+    <h5>Konum Listesi</h5>
+    <div id="konumListesiIcerik">
+    </div>
+</div>
+
 
 
 <main class="main">

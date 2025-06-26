@@ -1,0 +1,14 @@
+# Konum  Uygulaması (Laravel + Docker)
+
+## Gerekli Kurulumlar
+- Docker & Docker Compose
+
+## Projenin Kurulumu
+
+```bash
+git clone https://github.com/ibrahimcaglayaa/location_TestApplication.git
+cd location_TestApplication
+cp .env.example .env
+docker-compose up -d --build
+docker exec -it laravel-app php artisan key:generate
+docker exec -it laravel-app php artisan migrate

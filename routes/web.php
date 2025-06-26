@@ -15,3 +15,6 @@ Route::post('/konum-ekle', [LocationController::class, 'store'])->name('konum.ek
 Route::get('/konumlar', function () {
     return response()->json(Location::all());
 });
+
+
+Route::post('/konum-guncelle', [LocationController::class, 'update'])->name('konum.guncelle');

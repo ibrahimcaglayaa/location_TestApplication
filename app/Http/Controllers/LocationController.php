@@ -21,4 +21,21 @@ class LocationController extends Controller
 
         return response()->json(['message' => 'Konum başarıyla eklendi']);
     }
+
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'id' => 'required|exists:locations,id',
+            'name' => 'required|string|max:100',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'color' => ['required', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+        ]);
+
+        $location = Location::findOrFail($validated['id']);
+        $location->update($validated);
+
+        return back()->with('success', 'Konum güncellendi!');
+    }
+
 }

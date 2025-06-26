@@ -3,6 +3,29 @@
 
 @include('include.head')
 
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+    .main {
+        height: 100%;
+    }
+    .main section {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    #map {
+        height: 100%;
+        width: 100%;
+    }
+</style>
+
 </head>
 
 <body class="index-page">
@@ -93,16 +116,14 @@
 
 
 
-<main class="main">
 
 
-    <section>
+        <section>
+            <div id="map" style="width: 100%; height: 600px;"></div>
+        </section>
 
 
-    </section>
 
-
-</main>
 
 
 
@@ -197,6 +218,33 @@
         modal.show();
     }
 
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const map = L.map('map').setView([39.92077, 32.85411], 6);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        fetch('/konumlar')
+            .then(res => res.json())
+            .then(locations => {
+                locations.forEach(loc => {
+
+                    const marker = L.circleMarker([lo.latitude, loc.longitude], {
+                        color: loc.color,
+                        fillColor: loc.color,
+                        fillOpacity: 0.7,
+                        radius: 8
+                    }).addTo(map);
+
+                    marker.bindPopup(`<strong>${loc.name}</strong><br>Renk: <span style="color:${loc.color}">${loc.color}</span>`);
+                });
+            });
+    });
 </script>
 
 

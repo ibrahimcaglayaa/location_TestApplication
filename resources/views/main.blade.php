@@ -81,8 +81,10 @@
     height: 100%;
     background: #fff;
     border-left: 1px solid #ccc;
-    transition: right 0.9s ease-in-out;
+    transition: right 0.3s ease-in-out;
     padding: 20px;
+        z-index: 1050;
+            overflow-y: auto;
 ">
     <h5>Konum Listesi</h5>
     <div id="konumListesiIcerik">
@@ -107,6 +109,34 @@
 <div id="preloader"></div>
 
 <script src="{{ asset('js/main.js') }}"></script>
+<script>
+    function toggleKonumPanel(e) {
+        e.preventDefault();
+        const panel = document.getElementById("konumListesiPanel");
+        if (panel.style.right === "0px") {
+            panel.style.left = "-300px";
+            return;
+        }
+
+        panel.style.right = "0px";
+
+        fetch('/konumlar')
+            .then(res => res.json())
+            .then(data => {
+                const icerikDiv = document.getElementById("konumListesiIcerik");
+                icerikDiv.innerHTML = '';
+
+                data.formEnctype(loc => {
+                    icerikDiv.innerHTML += `
+                    <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+                        <strong>${loc.name}</strong><br>
+
+                    </div>
+                `;
+                });
+            });
+    }
+</script>
 
 </body>
 

@@ -35,8 +35,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
             </div>
             <div class="modal-body">
-                <form id="konumForm">
-                    <div class="mb-3">
+                <form id="konumForm" method="POST" action="{{ route('konum.ekle') }}">
+                    @csrf
+                <div class="mb-3">
                         <label for="konumAdi" class="form-label">Konum Adı</label>
                         <input type="text" class="form-control" id="konumAdi" name="name" required>
                     </div>

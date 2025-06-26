@@ -126,11 +126,13 @@
                 const icerikDiv = document.getElementById("konumListesiIcerik");
                 icerikDiv.innerHTML = '';
 
-                data.formEnctype(loc => {
+                data.forEach(loc => {
                     icerikDiv.innerHTML += `
                     <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
                         <strong>${loc.name}</strong><br>
-
+                        Enlem: ${loc.latitude}<br>
+                        Boylam: ${loc.longitude}<br>
+                        Renk: <span style="color:${loc.color}">${loc.color}</span>
                     </div>
                 `;
                 });
